@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/mystery-chain-app/static/css/main.63767e52.css",
+    "main.js": "/mystery-chain-app/static/js/main.6088a021.js",
+    "static/js/453.c6824941.chunk.js": "/mystery-chain-app/static/js/453.c6824941.chunk.js",
+    "index.html": "/mystery-chain-app/index.html",
+    "main.63767e52.css.map": "/mystery-chain-app/static/css/main.63767e52.css.map",
+    "main.6088a021.js.map": "/mystery-chain-app/static/js/main.6088a021.js.map",
+    "453.c6824941.chunk.js.map": "/mystery-chain-app/static/js/453.c6824941.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.63767e52.css",
+    "static/js/main.6088a021.js"
+  ]
+}
