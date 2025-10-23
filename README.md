@@ -1,70 +1,98 @@
-# Getting Started with Create React App
+# **Mystery Chain**
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+A real-time, multiplayer story-building game where suspense and creativity collide.
 
-## Available Scripts
+Mystery Chain is a web app where players join a story room and take turns writing one line of a story. The catch? You can only see the *single last line* submitted. The full story remains a secret until the host ends the game, revealing the hilarious, bizarre, or epic tale you've all written together.
 
-In the project directory, you can run:
+This project is built with React, Firebase for real-time data, and the Google Gemini API for an "Ask AI" feature.
 
-### `npm start`
+## **Live Demo**
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+**Play the live version here: [https://wardasanam.github.io/mystery-chain-app](https://www.google.com/url?sa=E&source=gmail&q=https://wardasanam.github.io/mystery-chain-app)**
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+*(You can add a screenshot or GIF of the app in action here\!)*
 
-### `npm test`
+## **Features**
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+* **Real-time Multiplayer:** Uses Firebase Firestore to sync the lobby and game state instantly across all clients.  
+* **Anonymous Auth:** Quick and easy login—just pick a username and play.  
+* **Create & Join Rooms:** Create new story rooms (open or password-protected) or join existing ones.  
+* **Short Room IDs:** Generates a 4-character, easy-to-share room ID for joining.  
+* **Mystery Story Logic:** Players can only see the *last* line written, ensuring maximum suspense.  
+* **Turn-Based System:** The app manages whose turn it is to write.  
+* **AI Story Writer:** Stuck? Click "Ask AI" to have Google's Gemini API write a line for you.  
+* **Host Controls:** The room's host can start the game, end the story, and delete their own room.  
+* **Full Story Reveal:** When the game ends, the full story is revealed with a fun, animated scroll.  
+* **Automatic Cleanup:** Rooms are automatically deleted when the last player leaves.  
+* **Developer Tools:** Includes a "Clear All Rooms" button for easy cleanup during testing.
 
-### `npm run build`
+## **Technologies Used**
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+* **Frontend:** React (functional components, hooks)  
+* **Database & Auth:** Firebase (Firestore for real-time DB, Anonymous Auth for users)  
+* **Styling:** TailwindCSS  
+* **Animations:** Framer Motion  
+* **Icons:** Lucide React  
+* **AI:** Google Gemini API (gemini-2.5-flash-preview-09-2025)  
+* **Deployment:** GitHub Pages
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+## **Local Setup**
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+To run this project on your local machine, follow these steps:
 
-### `npm run eject`
+1. **Clone the repository:**  
+   git clone \[https://github.com/wardasanam/mystery-chain-app.git\](https://github.com/wardasanam/mystery-chain-app.git)  
+   cd mystery-chain-app
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+2. Install dependencies:  
+   This project uses npm.  
+   npm install
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+3. **Set up Firebase (CRITICAL):**  
+   * Go to the [Firebase Console](https://console.firebase.google.com/) and create a new project.  
+   * Click the Gear icon \> **Project settings**. Under the "General" tab, find your **"Web API Key"** and other project details.  
+   * Open src/App.js (or mystery\_chain\_app.jsx) and replace the firebaseConfig object with your own. (You have already done this).  
+   * Go to **Build \> Authentication** \> **Settings** \> **Authorized domains** and **add localhost**.  
+   * Go to **Build \> Authentication** \> **Sign-in method** and enable **Anonymous** sign-in.  
+   * Go to your **Google Cloud Console** (from the link in the Firebase error, or by searching) and ensure the **"Identity Toolkit API"** is enabled.  
+   * Go to **Build \> Firestore Database** \> **Rules** and set them to allow reads/writes:  
+     rules\_version \= '2';  
+     service cloud.firestore {  
+       match /databases/{database}/documents {  
+         match /rooms/{roomId=\*\*} {  
+           allow read, write: if request.auth \!= null;  
+         }  
+       }  
+     }
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+4. **Set up Google AI Key:**  
+   * Go to [Google AI Studio](https://aistudio.google.com/app) and get a free API key.  
+   * The app is designed to ask you for this key in a modal and save it to your browser's localStorage. No file edits are needed.  
+5. **Run the app:**  
+   npm start
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+   The app will open on http://localhost:3000.
 
-## Learn More
+## **Deployment**
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+This project is set up for easy deployment to GitHub Pages.
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+1. **Install gh-pages:**  
+   npm install gh-pages \--save-dev
 
-### Code Splitting
+2. **Update package.json:**  
+   * Add a homepage property at the top (replace with your username):  
+     "homepage": "https://wardasanam.github.io/mystery-chain-app",  
+   * Add these scripts to your scripts object:  
+     "predeploy": "npm run build",  
+     "deploy": "gh-pages \-d build"
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+3. **Deploy:**  
+   npm run deploy
 
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+4. **Update GitHub Settings:**  
+   * Go to your repo's **Settings \> Pages**.  
+   * Set the "Source" branch to **gh-pages** and save.  
+5. **Authorize Domain in Firebase:**  
+   * Go to your **Firebase Console \> Authentication \> Settings \> Authorized domains**.  
+   * Add your new domain: wardasanam.github.io
